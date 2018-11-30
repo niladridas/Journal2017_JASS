@@ -1,0 +1,162 @@
+% plots for the journal
+clc;clear; close all;
+% load all data
+ot20 = load('ot_repeat_20.mat');
+ot60 = load('ot_repeat_60.mat');
+ot100 = load('ot_repeat_100.mat');
+
+enkf20 = load('enkf_repeat_20.mat');
+enkf60 = load('enkf_repeat_60.mat');
+enkf100 = load('enkf_repeat_100.mat');
+
+load('date_mee.mat');
+load('time_pt_days');
+
+t_spot = time_pt_days;
+ylabel_names = ['p','f','g','h','k','L'];
+measured_output = date_mee(:,7:12);
+
+enkf20_mean = mean(enkf20.x_est_enkf,3);
+enkf20_sig =  0.5*sqrt(var(enkf20.x_est_enkf,[],3));
+enkf60_mean = mean(enkf60.x_est_enkf,3);
+enkf60_sig =  0.5*sqrt(var(enkf60.x_est_enkf,[],3));
+enkf100_mean = mean(enkf100.x_est_enkf,3);
+enkf100_sig =  0.5*sqrt(var(enkf100.x_est_enkf,[],3));
+
+ot20_mean = mean(ot20.x_est_OT,3);
+ot20_sig =  0.5*sqrt(var(ot20.x_est_OT,[],3));
+ot60_mean = mean(ot60.x_est_OT,3);
+ot60_sig =  0.5*sqrt(var(ot60.x_est_OT,[],3));
+ot100_mean = mean(ot100.x_est_OT,3);
+ot100_sig =  0.5*sqrt(var(ot100.x_est_OT,[],3));
+
+
+% plot 1: 20 60 100 data points plot
+for i = 1:6
+    figure(i)
+    subplot(2,3,1)
+    a =errorbar(t_spot,ot20_mean(:,i),ot20_sig(:,i));
+    a.Color = 'red';
+    a.LineStyle = '-';
+    a.LineWidth = 1;
+    a.Marker = 'o';
+    a.MarkerSize = 2;
+    a.MarkerEdgeColor = 'red';
+    a.MarkerFaceColor = 'red';
+    xlabel('Time (Days)','FontName','sans-serif','FontSize',15,'FontWeight','Bold');
+    ylabel(ylabel_names(i),'FontName','Times New Roman','FontSize',15,'FontWeight','Bold');
+    hold on
+    c = plot(t_spot,measured_output(:,i));
+    c.Color = [0 0.5 0];
+    c.LineStyle = '-';
+    c.LineWidth = 1;
+    c.Marker = 'o';
+    c.MarkerSize = 2;
+    c.MarkerEdgeColor = [0 0.5 0];
+    legend('OT','True'); 
+    subplot(2,3,2)
+    a =errorbar(t_spot,ot60_mean(:,i),ot60_sig(:,i));
+    a.Color = 'red';
+    a.LineStyle = '-';
+    a.LineWidth = 1;
+    a.Marker = 'o';
+    a.MarkerSize = 2;
+    a.MarkerEdgeColor = 'red';
+    a.MarkerFaceColor = 'red';
+    xlabel('Time (Days)','FontName','sans-serif','FontSize',15,'FontWeight','Bold');
+    ylabel(ylabel_names(i),'FontName','Times New Roman','FontSize',15,'FontWeight','Bold');
+    hold on
+    c = plot(t_spot,measured_output(:,i));
+    c.Color = [0 0.5 0];
+    c.LineStyle = '-';
+    c.LineWidth = 1;
+    c.Marker = 'o';
+    c.MarkerSize = 2;
+    c.MarkerEdgeColor = [0 0.5 0];
+    legend('OT','True');
+    subplot(2,3,3)
+    a =errorbar(t_spot,ot100_mean(:,i),ot100_sig(:,i));
+    a.Color = 'red';
+    a.LineStyle = '-';
+    a.LineWidth = 1;
+    a.Marker = 'o';
+    a.MarkerSize = 2;
+    a.MarkerEdgeColor = 'red';
+    a.MarkerFaceColor = 'red';
+    xlabel('Time (Days)','FontName','sans-serif','FontSize',15,'FontWeight','Bold');
+    ylabel(ylabel_names(i),'FontName','Times New Roman','FontSize',15,'FontWeight','Bold');
+    hold on
+    c = plot(t_spot,measured_output(:,i));
+    c.Color = [0 0.5 0];
+    c.LineStyle = '-';
+    c.LineWidth = 1;
+    c.Marker = 'o';
+    c.MarkerSize = 2;
+    c.MarkerEdgeColor = [0 0.5 0];
+    legend('OT','True');
+    subplot(2,3,4)
+    a =errorbar(t_spot,enkf20_mean(:,i),enkf20_sig(:,i));
+    a.Color = 'red';
+    a.LineStyle = '-';
+    a.LineWidth = 1;
+    a.Marker = 'o';
+    a.MarkerSize = 2;
+    a.MarkerEdgeColor = 'red';
+    a.MarkerFaceColor = 'red';
+    xlabel('Time (Days)','FontName','sans-serif','FontSize',15,'FontWeight','Bold');
+    ylabel(ylabel_names(i),'FontName','Times New Roman','FontSize',15,'FontWeight','Bold');
+    hold on
+    c = plot(t_spot,measured_output(:,i));
+    c.Color = [0 0.5 0];
+    c.LineStyle = '-';
+    c.LineWidth = 1;
+    c.Marker = 'o';
+    c.MarkerSize = 2;
+    c.MarkerEdgeColor = [0 0.5 0];
+    legend('EnKF','True');
+    subplot(2,3,5)
+    a =errorbar(t_spot,enkf60_mean(:,i),enkf60_sig(:,i));
+    a.Color = 'red';
+    a.LineStyle = '-';
+    a.LineWidth = 1;
+    a.Marker = 'o';
+    a.MarkerSize = 2;
+    a.MarkerEdgeColor = 'red';
+    a.MarkerFaceColor = 'red';
+    xlabel('Time (Days)','FontName','sans-serif','FontSize',15,'FontWeight','Bold');
+    ylabel(ylabel_names(i),'FontName','Times New Roman','FontSize',15,'FontWeight','Bold');
+    hold on
+    c = plot(t_spot,measured_output(:,i));
+    c.Color = [0 0.5 0];
+    c.LineStyle = '-';
+    c.LineWidth = 1;
+    c.Marker = 'o';
+    c.MarkerSize = 2;
+    c.MarkerEdgeColor = [0 0.5 0];
+    legend('EnKF','Obs');
+    subplot(2,3,6)
+    a =errorbar(t_spot,enkf100_mean(:,i),enkf100_sig(:,i));
+    a.Color = 'red';
+    a.LineStyle = '-';
+    a.LineWidth = 1;
+    a.Marker = 'o';
+    a.MarkerSize = 2;
+    a.MarkerEdgeColor = 'red';
+    a.MarkerFaceColor = 'red';
+    xlabel('Time (Days)','FontName','sans-serif','FontSize',15,'FontWeight','Bold');
+    ylabel(ylabel_names(i),'FontName','Times New Roman','FontSize',15,'FontWeight','Bold');
+    hold on
+    c = plot(t_spot,measured_output(:,i));
+    c.Color = [0 0.5 0];
+    c.LineStyle = '-';
+    c.LineWidth = 1;
+    c.Marker = 'o';
+    c.MarkerSize = 2;
+    c.MarkerEdgeColor = [0 0.5 0];
+    legend('OT','True');
+end
+
+
+
+
+
